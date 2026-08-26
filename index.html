@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theory Foundations | Okanagan School of Guitar</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta name="description" content="A beginner music theory primer and quiz for Okanagan School of Guitar students — the musical alphabet, the fingerboard, the major scale, and finding the root.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --bg-alt:#EAF3F5;
+    --teal-deep:#185A72;
+    --teal-mid:#4C90A6;
+    --teal-light:#D5E9EA;
+    --accent:#2E86A6;
+    --accent-dark:#103F4F;
+    --ink:#16323D;
+    --ink-soft:#45606B;
+    --line: rgba(24,90,114,0.16);
+    --radius: 14px;
+    --max: 1080px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Montserrat', sans-serif;
+    color:var(--teal-deep);
+    margin:0 0 .4em 0;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  a{color:var(--accent-dark);}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 28px;}
+  .eyebrow{
+    font-family:'Work Sans', sans-serif;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent-dark);
+    margin-bottom:.9em;
+    display:inline-block;
+  }
+
+  /* ---------- Nav ---------- */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:rgba(251,247,239,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px;
+    max-width:var(--max); margin:0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Montserrat', sans-serif; font-weight:700; font-size:15px; color:var(--teal-deep);
+    text-decoration:none; text-transform:uppercase; letter-spacing:.05em;
+  }
+  .brand img{height:34px; width:auto; flex-shrink:0;}
+  .nav-links{display:flex; gap:18px; list-style:none; margin:0; padding:0; flex-wrap:nowrap;}
+  .nav-links a{
+    color:var(--ink); text-decoration:none; font-weight:500; font-size:14px;
+    border-bottom:2px solid transparent; padding-bottom:2px; white-space:nowrap;
+  }
+  .nav-links a:hover{border-color:var(--accent);}
+  .nav-toggle{display:none;}
+
+  @media (max-width:980px){
+    .nav-links{
+      position:fixed; top:64px; left:0; right:0;
+      background:var(--bg); flex-direction:column; gap:0;
+      border-bottom:1px solid var(--line);
+      max-height:0; overflow:hidden; transition:max-height .25s ease;
+    }
+    .nav-links.open{max-height:420px; overflow-y:auto;}
+    .nav-links a{display:block; padding:14px 28px; border-bottom:1px solid var(--line);}
+    .nav-toggle{
+      display:block; background:none; border:none; cursor:pointer;
+      width:34px; height:34px; position:relative;
+    }
+    .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{
+      content:''; position:absolute; left:6px; right:6px; height:2px; background:var(--teal-deep);
+    }
+    .nav-toggle span{top:16px;}
+    .nav-toggle span::before{top:-7px;}
+    .nav-toggle span::after{top:7px;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:76px 0 64px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.1fr .9fr; gap:48px; align-items:center;
+  }
+  .hero h1{font-size:clamp(32px,5vw,52px); line-height:1.08;}
+  .hero p.lead{font-size:19px; color:var(--ink-soft); max-width:46ch; margin:18px 0 30px;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--accent); color:#fff; text-decoration:none;
+    font-weight:600; font-size:15px; padding:13px 24px; border-radius:999px;
+    border:none; cursor:pointer;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .btn:hover{background:var(--accent-dark); transform:translateY(-1px);}
+  .btn.ghost{
+    background:transparent; color:var(--teal-deep); border:1.5px solid var(--teal-deep);
+  }
+  .btn.ghost:hover{background:var(--teal-deep); color:#fff;}
+  .btn-row{display:flex; gap:14px; flex-wrap:wrap;}
+
+  @media (max-width:800px){
+    .hero-grid{grid-template-columns:1fr;}
+  }
+  .hero-logo-card{
+    background:#fff; border-radius:20px; border:1px solid var(--line);
+    padding:36px; box-shadow:0 10px 30px rgba(24,90,114,.06);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .hero-logo-card img{width:100%; max-width:380px; height:auto; display:block;}
+
+  /* ---------- Fretboard motif (signature element) ---------- */
+  .fret-divider{width:100%; height:auto; display:block; margin:0 auto;}
+  .curriculum-progress{
+    display:flex; gap:6px; align-items:flex-end; margin-top:8px;
+  }
+  .curriculum-progress .fretdot{
+    width:11px; height:11px; border-radius:50%;
+    background:var(--line); border:1.5px solid var(--teal-mid);
+  }
+  .curriculum-progress .fretdot.done{background:var(--accent); border-color:var(--accent-dark);}
+
+  /* ---------- Topic sections ---------- */
+  section.topic{
+    padding:64px 0;
+    border-top:1px solid var(--line);
+  }
+  section.topic:nth-of-type(even){background:var(--bg-alt);}
+  .topic-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;
+  }
+  .topic-grid.reverse .topic-text{order:2;}
+  .topic-grid.reverse .topic-visual{order:1;}
+  @media (max-width:800px){
+    .topic-grid, .topic-grid.reverse{grid-template-columns:1fr;}
+    .topic-grid.reverse .topic-text, .topic-grid.reverse .topic-visual{order:initial;}
+  }
+  .topic-number{
+    font-family:'Work Sans', sans-serif; font-size:13px; text-transform:uppercase;
+    color:var(--teal-mid); font-weight:700; letter-spacing:.12em;
+  }
+  .topic-text h2{font-size:clamp(24px,3vw,32px); margin-top:.1em;}
+  .topic-text p{color:var(--ink-soft); margin:0 0 14px;}
+  .topic-text ul{color:var(--ink-soft); padding-left:20px; margin:14px 0;}
+  .topic-text li{margin-bottom:6px;}
+  .callout{
+    background:var(--teal-light); border-radius:var(--radius);
+    padding:14px 18px; font-size:15px; color:var(--teal-deep); font-weight:500;
+    margin-top:16px; border:1px solid rgba(24,90,114,.12);
+  }
+  .topic-visual{
+    background:#fff; border-radius:20px; border:1px solid var(--line);
+    padding:26px; box-shadow:0 10px 30px rgba(24,90,114,.06);
+  }
+  .topic-visual svg{width:100%; height:auto; display:block;}
+
+  /* ---------- Quiz ---------- */
+  section.quiz{
+    padding:72px 0 90px; border-top:1px solid var(--line);
+  }
+  .quiz-head{text-align:center; max-width:600px; margin:0 auto 44px;}
+  .quiz-head p{color:var(--ink-soft);}
+  .quiz-card{
+    background:#fff; border:1px solid var(--line); border-radius:20px;
+    padding:36px; max-width:760px; margin:0 auto;
+    box-shadow:0 14px 40px rgba(24,90,114,.07);
+  }
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:28px;}
+  @media (max-width:600px){.field-row{grid-template-columns:1fr;}}
+  label.field-label{
+    display:block; font-size:13px; font-weight:600; letter-spacing:.04em;
+    text-transform:uppercase; color:var(--teal-deep); margin-bottom:6px;
+  }
+  input[type="text"], input[type="email"]{
+    width:100%; padding:11px 14px; border-radius:10px; border:1.5px solid var(--line);
+    font-family:'Work Sans', sans-serif; font-size:15px; background:var(--bg);
+    color:var(--ink);
+  }
+  input[type="text"]:focus, input[type="email"]:focus{
+    outline:none; border-color:var(--accent);
+  }
+  .q{
+    padding:22px 0; border-top:1px solid var(--line);
+  }
+  .q:first-of-type{border-top:none;}
+  .q-prompt{font-weight:600; margin-bottom:12px; color:var(--ink);}
+  .q-num{color:var(--accent-dark); font-family:'Montserrat', sans-serif; font-weight:800; margin-right:6px;}
+  .options{display:flex; flex-direction:column; gap:9px;}
+  .option{
+    display:flex; align-items:center; gap:10px;
+    padding:10px 14px; border-radius:10px; border:1.5px solid var(--line);
+    cursor:pointer; transition:border-color .15s ease, background .15s ease;
+  }
+  .option:hover{border-color:var(--teal-mid);}
+  .option input{accent-color:var(--accent);}
+  .option.selected{border-color:var(--accent); background:rgba(46,134,166,0.08);}
+
+  .quiz-submit-row{margin-top:30px; text-align:center;}
+  .quiz-note{font-size:13px; color:var(--ink-soft); margin-top:12px;}
+
+  .result-panel{
+    display:none; text-align:center; margin-top:34px; padding-top:30px; border-top:1px solid var(--line);
+  }
+  .result-panel.show{display:block;}
+  .result-score{font-family:'Montserrat', sans-serif; font-size:44px; color:var(--teal-deep); font-weight:800;}
+  .result-frets{display:flex; justify-content:center; gap:8px; margin:14px 0 10px;}
+  .result-frets .dot{width:14px; height:14px; border-radius:50%; background:var(--line); border:1.5px solid var(--teal-mid);}
+  .result-frets .dot.hit{background:var(--accent); border-color:var(--accent-dark);}
+  .result-msg{color:var(--ink-soft); max-width:44ch; margin:0 auto;}
+  .error-msg{display:none; color:#a33; font-size:14px; margin-top:14px; text-align:center;}
+  .error-msg.show{display:block;}
+
+  /* ---------- Footer ---------- */
+  footer.site{
+    background:var(--teal-deep); color:#EAF3F3; padding:54px 0 30px;
+  }
+  footer.site h4{color:#fff; font-size:16px;}
+  footer.site a{color:#EAF3F3;}
+  .footer-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:36px;}
+  @media (max-width:700px){.footer-grid{grid-template-columns:1fr; gap:28px;}}
+  .footer-grid p, .footer-grid a{color:rgba(234,243,243,0.78); font-size:14.5px; text-decoration:none; display:block; margin-bottom:6px;}
+  .footer-bottom{
+    margin-top:44px; padding-top:20px; border-top:1px solid rgba(234,243,243,0.15);
+    font-size:13px; color:rgba(234,243,243,0.55); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav class="nav">
+    <a href="#top" class="brand">
+      <img src="assets/logo-icon.png" alt="Okanagan School of Guitar">
+      Okanagan School of Guitar
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#alphabet">Alphabet</a></li>
+      <li><a href="#fingerboard">Fingerboard</a></li>
+      <li><a href="#scale">Scale</a></li>
+      <li><a href="#root">Root</a></li>
+      <li><a href="#rhythm">Rhythm</a></li>
+      <li><a href="#staff">Staff</a></li>
+      <li><a href="#chords">Chords</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ---------------- HERO ---------------- -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">Theory Foundations</span>
+        <h1>Before you touch the guitar,<br>learn to speak its language.</h1>
+        <p class="lead">Eight short lessons and a quiz to get you ready for your first class with Gabriel — no instrument required yet, just a few minutes and some curiosity.</p>
+        <div class="btn-row">
+          <a href="#alphabet" class="btn">Start with the Alphabet</a>
+          <a href="#quiz" class="btn ghost">Jump to the Quiz</a>
+        </div>
+      </div>
+      <div class="hero-logo-card">
+        <img src="assets/logo-full.png" alt="Okanagan School of Guitar">
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------------- 01 ALPHABET ---------------- -->
+  <section class="topic" id="alphabet">
+    <div class="wrap topic-grid">
+      <div class="topic-text">
+        <span class="topic-number">01 — The Musical Alphabet</span>
+        <h2>Only seven letters. Then it loops.</h2>
+        <p>Western music runs on just seven letter names: <strong>A, B, C, D, E, F, G.</strong> Once you reach G, the alphabet doesn't stop — it loops right back around to A, one octave higher.</p>
+        <p>Between most letters sits a sharp (♯) or flat (♭) note, giving you a note "in between." But two pairs sit right next to each other with nothing in between at all:</p>
+        <div class="callout">B → C and E → F have no sharp or flat between them. Everywhere else, there's a black key waiting in the middle.</div>
+      </div>
+      <div class="topic-visual">
+        <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="160" cy="160" r="118" fill="none" stroke="#185A72" stroke-opacity="0.15" stroke-width="1.5"/>
+          <!-- highlighted arcs: no note between B-C and E-F -->
+          <path d="M 272.6 95.0 A 130 130 0 0 1 290.0 160.0" fill="none" stroke="#2E86A6" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 7"/>
+          <path d="M 95.0 272.6 A 130 130 0 0 1 47.4 225.0" fill="none" stroke="#2E86A6" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 7"/>
+          <!-- 12 chromatic note positions -->
+          <circle cx="160.0" cy="42.0" r="13" fill="#185A72"/>
+          <text x="160.0" y="21.0" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="15" font-weight="700" fill="#185A72">A</text>
+          <circle cx="219.0" cy="57.8" r="9" fill="#2E86A6"/>
+          <text x="232.0" y="40.3" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="500" fill="#103F4F">A♯</text>
+          <circle cx="262.2" cy="101.0" r="13" fill="#185A72"/>
+          <text x="284.7" y="93.0" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="15" font-weight="700" fill="#185A72">B</text>
+          <circle cx="278.0" cy="160.0" r="13" fill="#185A72"/>
+          <text x="304.0" y="165.0" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="15" font-weight="700" fill="#185A72">C</text>
+          <circle cx="262.2" cy="219.0" r="9" fill="#2E86A6"/>
+          <text x="284.7" y="237.0" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="500" fill="#103F4F">C♯</text>
+          <circle cx="219.0" cy="262.2" r="13" fill="#185A72"/>
+          <text x="232.0" y="289.7" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="15" font-weight="700" fill="#185A72">D</text>
+          <circle cx="160.0" cy="278.0" r="9" fill="#2E86A6"/>
+          <text x="160.0" y="300.0" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="500" fill="#103F4F">D♯</text>
+          <circle cx="101.0" cy="262.2" r="13" fill="#185A72"/>
+          <text x="88.0" y="289.7" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="15" font-weight="700" fill="#185A72">E</text>
+          <circle cx="57.8" cy="219.0" r="13" fill="#185A72"/>
+          <text x="35.3" y="237.0" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="15" font-weight="700" fill="#185A72">F</text>
+          <circle cx="42.0" cy="160.0" r="9" fill="#2E86A6"/>
+          <text x="20.0" y="165.0" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="500" fill="#103F4F">F♯</text>
+          <circle cx="57.8" cy="101.0" r="13" fill="#185A72"/>
+          <text x="35.3" y="93.0" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="15" font-weight="700" fill="#185A72">G</text>
+          <circle cx="101.0" cy="57.8" r="9" fill="#2E86A6"/>
+          <text x="88.0" y="40.3" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="500" fill="#103F4F">G♯</text>
+          <text x="160" y="163" text-anchor="middle" font-family="Work Sans, sans-serif" font-weight="600" font-size="12" fill="#4C90A6">A → G,</text>
+          <text x="160" y="178" text-anchor="middle" font-family="Work Sans, sans-serif" font-weight="600" font-size="12" fill="#4C90A6">then loops</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------------- 02 FINGERBOARD ---------------- -->
+  <section class="topic" id="fingerboard">
+    <div class="wrap topic-grid reverse">
+      <div class="topic-text">
+        <span class="topic-number">02 — The Fingerboard Grid</span>
+        <h2>One fret, one half step. Two frets, one whole step.</h2>
+        <p>The guitar makes distance visual. Every fret you move is a <strong>half step</strong>. Skip two frets and you've moved a <strong>whole step</strong>.</p>
+        <p>That's the whole grid. Once half steps and whole steps click, you can measure any distance on the neck just by counting frets — no guessing required.</p>
+        <div class="callout">Half step = 1 fret. Whole step = 2 frets. Everything else in theory is built from these two distances.</div>
+      </div>
+      <div class="topic-visual">
+        <svg viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg">
+          <!-- brackets -->
+          <path d="M 52 66 L 52 50 L 116 50 L 116 66" fill="none" stroke="#2E86A6" stroke-width="2"/>
+          <text x="84" y="38" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="600" fill="#103F4F">Half step</text>
+          <path d="M 116 96 L 116 80 L 244 80 L 244 96" fill="none" stroke="#4C90A6" stroke-width="2"/>
+          <text x="180" y="68" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="600" fill="#185A72">Whole step</text>
+          <!-- neck -->
+          <rect x="20" y="110" width="320" height="70" fill="#EAF3F5" stroke="#185A72" stroke-opacity="0.3"/>
+          <g stroke="#185A72" stroke-opacity="0.4" stroke-width="2">
+            <line x1="20" y1="110" x2="20" y2="180"/>
+            <line x1="84" y1="110" x2="84" y2="180"/>
+            <line x1="148" y1="110" x2="148" y2="180"/>
+            <line x1="212" y1="110" x2="212" y2="180"/>
+            <line x1="276" y1="110" x2="276" y2="180"/>
+            <line x1="340" y1="110" x2="340" y2="180"/>
+          </g>
+          <rect x="16" y="108" width="6" height="74" fill="#185A72"/>
+          <line x1="20" y1="145" x2="340" y2="145" stroke="#4C90A6" stroke-width="1.6"/>
+          <!-- fret numbers -->
+          <g font-family="Work Sans, sans-serif" font-size="11" fill="#45606B" text-anchor="middle">
+            <text x="52" y="198">1</text><text x="116" y="198">2</text><text x="180" y="198">3</text>
+            <text x="244" y="198">4</text><text x="308" y="198">5</text>
+          </g>
+          <!-- note dots -->
+          <circle cx="52" cy="145" r="10" fill="#2E86A6"/>
+          <circle cx="116" cy="145" r="10" fill="#2E86A6"/>
+          <circle cx="244" cy="145" r="10" fill="#185A72"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------------- 03 MAJOR SCALE ---------------- -->
+  <section class="topic" id="scale">
+    <div class="wrap topic-grid">
+      <div class="topic-text">
+        <span class="topic-number">03 — The Major Scale</span>
+        <h2>One formula. Every major scale.</h2>
+        <p>Every major scale — in any key, on any instrument — follows the exact same recipe of whole (W) and half (H) steps:</p>
+        <div class="callout">W – W – H – W – W – W – H</div>
+        <p>Start on any note and apply that formula, and you'll land on a major scale. Here it is starting from C — which happens to use no sharps or flats at all.</p>
+      </div>
+      <div class="topic-visual">
+        <svg viewBox="0 0 380 160" xmlns="http://www.w3.org/2000/svg">
+          <g font-family="Montserrat, sans-serif" font-weight="700" font-size="18" text-anchor="middle" fill="#185A72">
+            <text x="30" y="70">C</text>
+            <text x="84" y="70">D</text>
+            <text x="138" y="70">E</text>
+            <text x="192" y="70">F</text>
+            <text x="246" y="70">G</text>
+            <text x="300" y="70">A</text>
+            <text x="354" y="70">B</text>
+          </g>
+          <text x="354" y="110" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="700" font-size="18" fill="#4C90A6">C</text>
+          <g stroke="#185A72" stroke-opacity="0.25" stroke-width="1.5">
+            <line x1="45" y1="60" x2="70" y2="60"/>
+            <line x1="99" y1="60" x2="124" y2="60"/>
+            <line x1="153" y1="60" x2="178" y2="60"/>
+            <line x1="207" y1="60" x2="232" y2="60"/>
+            <line x1="261" y1="60" x2="286" y2="60"/>
+            <line x1="315" y1="60" x2="340" y2="60"/>
+          </g>
+          <g font-family="Work Sans, sans-serif" font-size="12" font-weight="600" text-anchor="middle">
+            <text x="57" y="40" fill="#103F4F">W</text>
+            <text x="111" y="40" fill="#103F4F">W</text>
+            <text x="165" y="40" fill="#2E86A6">H</text>
+            <text x="219" y="40" fill="#103F4F">W</text>
+            <text x="273" y="40" fill="#103F4F">W</text>
+            <text x="327" y="40" fill="#103F4F">W</text>
+          </g>
+          <text x="354" y="40" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="600" fill="#2E86A6">H</text>
+          <line x1="315" y1="60" x2="354" y2="98" stroke="#185A72" stroke-opacity="0.25" stroke-width="1.5"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------------- 04 ROOT ---------------- -->
+  <section class="topic" id="root">
+    <div class="wrap topic-grid reverse">
+      <div class="topic-text">
+        <span class="topic-number">04 — Finding the Root</span>
+        <h2>Every chord and key has an anchor.</h2>
+        <p>The <strong>root</strong> is the note a chord or key is named after — the note everything else is built on and pulls back toward. In a G major chord, G is the root. In the key of D, D is the root.</p>
+        <p>Once you can spot the root by ear or on the neck, you can navigate any chord or key even before you know every note inside it.</p>
+        <div class="callout">Find the root first. Everything else in the chord is measured relative to it.</div>
+      </div>
+      <div class="topic-visual">
+        <svg viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 70 60 L 270 60" stroke="#185A72" stroke-opacity="0.2" stroke-width="1.5"/>
+          <circle cx="70" cy="60" r="24" fill="#2E86A6"/>
+          <text x="70" y="67" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="700" font-size="20" fill="#fff">G</text>
+          <circle cx="170" cy="60" r="18" fill="#185A72" fill-opacity="0.85"/>
+          <text x="170" y="66" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="700" font-size="16" fill="#fff">B</text>
+          <circle cx="270" cy="60" r="18" fill="#185A72" fill-opacity="0.85"/>
+          <text x="270" y="66" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="700" font-size="16" fill="#fff">D</text>
+          <text x="70" y="108" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="13" font-weight="700" fill="#103F4F">ROOT</text>
+          <path d="M 40 130 L 300 130 L 300 138 L 40 138 Z" fill="#D5E9EA"/>
+          <text x="170" y="160" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="14" font-weight="600" fill="#185A72">G major chord — anchored on G</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------------- 05 RHYTHM ---------------- -->
+  <section class="topic" id="rhythm">
+    <div class="wrap topic-grid">
+      <div class="topic-text">
+        <span class="topic-number">05 — Rhythm: The Pulse of Music</span>
+        <h2>Playing the right notes isn't enough. You need the right timing too.</h2>
+        <p>Different note types tell you how long a sound should last, measured in beats:</p>
+        <ul>
+          <li><strong>Whole note</strong> — 4 beats. Count "1‑2‑3‑4," ringing through the whole bar.</li>
+          <li><strong>Half note</strong> — 2 beats. Count "1‑2."</li>
+          <li><strong>Quarter note</strong> — 1 beat. One note played on every beat.</li>
+          <li><strong>Eighth note</strong> — 1/2 beat. Count "1‑&‑2‑&‑3‑&‑4‑&," two notes per beat.</li>
+        </ul>
+        <div class="callout">Same bar, four ways to divide it — the diagram shows how one whole note equals two halves, four quarters, or eight eighths.</div>
+      </div>
+      <div class="topic-visual">
+        <svg viewBox="0 0 360 175" xmlns="http://www.w3.org/2000/svg">
+          <text x="12" y="24" font-family="Work Sans, sans-serif" font-size="11" font-weight="700" fill="#45606B">WHOLE — 1 · 2 · 3 · 4</text>
+          <rect x="20" y="30" width="320" height="22" rx="4" fill="#185A72"/>
+          <text x="12" y="60" font-family="Work Sans, sans-serif" font-size="11" font-weight="700" fill="#45606B">HALF — 1 · 2</text>
+          <rect x="20" y="66" width="158" height="22" rx="4" fill="#185A72" opacity="0.85"/>
+          <rect x="182" y="66" width="158" height="22" rx="4" fill="#185A72" opacity="0.85"/>
+          <text x="12" y="96" font-family="Work Sans, sans-serif" font-size="11" font-weight="700" fill="#45606B">QUARTER — 1 · 2 · 3 · 4</text>
+          <rect x="20" y="102" width="77" height="22" rx="4" fill="#2E86A6"/>
+          <rect x="101" y="102" width="77" height="22" rx="4" fill="#2E86A6"/>
+          <rect x="182" y="102" width="77" height="22" rx="4" fill="#2E86A6"/>
+          <rect x="263" y="102" width="77" height="22" rx="4" fill="#2E86A6"/>
+          <text x="12" y="132" font-family="Work Sans, sans-serif" font-size="11" font-weight="700" fill="#45606B">EIGHTH — 1&amp; 2&amp; 3&amp; 4&amp;</text>
+          <rect x="20" y="138" width="36.5" height="22" rx="4" fill="#4C90A6"/>
+          <rect x="60.5" y="138" width="36.5" height="22" rx="4" fill="#4C90A6"/>
+          <rect x="101" y="138" width="36.5" height="22" rx="4" fill="#4C90A6"/>
+          <rect x="141.5" y="138" width="36.5" height="22" rx="4" fill="#4C90A6"/>
+          <rect x="182" y="138" width="36.5" height="22" rx="4" fill="#4C90A6"/>
+          <rect x="222.5" y="138" width="36.5" height="22" rx="4" fill="#4C90A6"/>
+          <rect x="263" y="138" width="36.5" height="22" rx="4" fill="#4C90A6"/>
+          <rect x="303.5" y="138" width="36.5" height="22" rx="4" fill="#4C90A6"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------------- 06 THE STAFF ---------------- -->
+  <section class="topic" id="staff">
+    <div class="wrap topic-grid reverse">
+      <div class="topic-text">
+        <span class="topic-number">06 — Reading the Staff</span>
+        <h2>Five lines, four spaces, two ways to read them.</h2>
+        <p>Standard music is written on a <strong>staff</strong> — five horizontal lines and four spaces. Which "clef" you read depends on your instrument: guitar players read <strong>Treble</strong>, bass players read <strong>Bass</strong>.</p>
+        <ul>
+          <li><strong>Treble lines</strong> (bottom to top): E‑G‑B‑D‑F — <em>Every Good Boy Does Fine</em></li>
+          <li><strong>Treble spaces:</strong> F‑A‑C‑E — spells <em>FACE</em></li>
+          <li><strong>Bass lines</strong> (bottom to top): G‑B‑D‑F‑A — <em>Good Boys Do Fine Always</em></li>
+          <li><strong>Bass spaces:</strong> A‑C‑E‑G — <em>All Cows Eat Grass</em></li>
+        </ul>
+        <div class="callout">The mnemonics are there so you never have to count lines from scratch — just remember the phrase.</div>
+      </div>
+      <div class="topic-visual">
+        <svg viewBox="0 0 360 210" xmlns="http://www.w3.org/2000/svg">
+          <text x="90" y="16" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="700" fill="#185A72">TREBLE</text>
+          <g stroke="#4C90A6" stroke-width="1.4">
+            <line x1="20" y1="30" x2="160" y2="30"/>
+            <line x1="20" y1="44" x2="160" y2="44"/>
+            <line x1="20" y1="58" x2="160" y2="58"/>
+            <line x1="20" y1="72" x2="160" y2="72"/>
+            <line x1="20" y1="86" x2="160" y2="86"/>
+          </g>
+          <g font-family="Work Sans, sans-serif" font-size="11" font-weight="700" fill="#103F4F" text-anchor="middle">
+            <text x="34" y="90">E</text>
+            <text x="62" y="76">G</text>
+            <text x="90" y="62">B</text>
+            <text x="118" y="48">D</text>
+            <text x="146" y="34">F</text>
+          </g>
+          <g font-family="Work Sans, sans-serif" font-size="11" font-weight="600" fill="#2E86A6" text-anchor="middle">
+            <text x="48" y="83">F</text>
+            <text x="76" y="69">A</text>
+            <text x="104" y="55">C</text>
+            <text x="132" y="41">E</text>
+          </g>
+
+          <text x="270" y="16" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="700" fill="#185A72">BASS</text>
+          <g stroke="#4C90A6" stroke-width="1.4">
+            <line x1="200" y1="30" x2="340" y2="30"/>
+            <line x1="200" y1="44" x2="340" y2="44"/>
+            <line x1="200" y1="58" x2="340" y2="58"/>
+            <line x1="200" y1="72" x2="340" y2="72"/>
+            <line x1="200" y1="86" x2="340" y2="86"/>
+          </g>
+          <g font-family="Work Sans, sans-serif" font-size="11" font-weight="700" fill="#103F4F" text-anchor="middle">
+            <text x="214" y="90">G</text>
+            <text x="242" y="76">B</text>
+            <text x="270" y="62">D</text>
+            <text x="298" y="48">F</text>
+            <text x="326" y="34">A</text>
+          </g>
+          <g font-family="Work Sans, sans-serif" font-size="11" font-weight="600" fill="#2E86A6" text-anchor="middle">
+            <text x="228" y="83">A</text>
+            <text x="256" y="69">C</text>
+            <text x="284" y="55">E</text>
+            <text x="312" y="41">G</text>
+          </g>
+
+          <line x1="90" y1="120" x2="90" y2="120" stroke="none"/>
+          <text x="90" y="140" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="700" fill="#103F4F">E G B D F</text>
+          <text x="90" y="158" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="10" fill="#45606B">Every Good Boy Does Fine</text>
+          <text x="270" y="140" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="700" fill="#103F4F">G B D F A</text>
+          <text x="270" y="158" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="10" fill="#45606B">Good Boys Do Fine Always</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------------- 07 WHAT IS A CHORD ---------------- -->
+  <section class="topic" id="chords">
+    <div class="wrap topic-grid">
+      <div class="topic-text">
+        <span class="topic-number">07 — What Is a Chord?</span>
+        <h2>One note is a melody. Several at once is harmony.</h2>
+        <p>Playing a single note at a time gives you a <strong>melody</strong> — a line you could hum. Play three or more different notes at the exact same time, and you get a <strong>chord</strong>.</p>
+        <p>Chords are the engine that drives a song forward. They're what a singer or soloist leans on underneath the melody.</p>
+        <div class="callout">A chord = three or more different notes, played together, at the same time.</div>
+      </div>
+      <div class="topic-visual">
+        <svg viewBox="0 0 340 190" xmlns="http://www.w3.org/2000/svg">
+          <text x="80" y="20" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="700" fill="#45606B">ONE NOTE AT A TIME</text>
+          <circle cx="40" cy="60" r="14" fill="#4C90A6"/>
+          <circle cx="80" cy="90" r="14" fill="#4C90A6"/>
+          <circle cx="120" cy="60" r="14" fill="#4C90A6"/>
+          <text x="80" y="130" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="13" font-weight="600" fill="#185A72">= Melody</text>
+
+          <line x1="180" y1="20" x2="180" y2="150" stroke="#185A72" stroke-opacity="0.12" stroke-width="1.5"/>
+
+          <text x="260" y="20" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="700" fill="#45606B">SEVERAL AT ONCE</text>
+          <circle cx="260" cy="55" r="16" fill="#2E86A6"/>
+          <circle cx="260" cy="80" r="16" fill="#185A72"/>
+          <circle cx="260" cy="105" r="16" fill="#2E86A6"/>
+          <text x="260" y="140" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="13" font-weight="600" fill="#185A72">= Chord (harmony)</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------------- 08 MAJOR VS MINOR ---------------- -->
+  <section class="topic" id="major-minor">
+    <div class="wrap topic-grid reverse">
+      <div class="topic-text">
+        <span class="topic-number">08 — Major vs. Minor Chords</span>
+        <h2>Same root, one note apart, totally different mood.</h2>
+        <p><strong>Major chords</strong> sound bright, happy, and resolved — think of the triumphant strum at the end of a rock song.</p>
+        <p><strong>Minor chords</strong> sound dark, sad, or moody. Major and minor chords share the same root — but take the middle note of a major chord and lower it by just <strong>one half step (one fret)</strong>, and the whole emotion shifts.</p>
+        <div class="callout">One fret on the middle note is the entire difference between "happy" and "sad."</div>
+      </div>
+      <div class="topic-visual">
+        <svg viewBox="0 0 340 190" xmlns="http://www.w3.org/2000/svg">
+          <text x="80" y="20" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="700" fill="#185A72">MAJOR — bright</text>
+          <circle cx="80" cy="50" r="15" fill="#185A72"/>
+          <text x="80" y="55" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="700" font-size="13" fill="#fff">5th</text>
+          <circle cx="80" cy="90" r="15" fill="#2E86A6"/>
+          <text x="80" y="95" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="700" font-size="13" fill="#fff">3rd</text>
+          <circle cx="80" cy="130" r="15" fill="#185A72"/>
+          <text x="80" y="135" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="700" font-size="13" fill="#fff">Root</text>
+
+          <line x1="170" y1="90" x2="210" y2="105" stroke="#103F4F" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <defs>
+            <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 Z" fill="#103F4F"/>
+            </marker>
+          </defs>
+          <text x="190" y="80" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="10" font-weight="600" fill="#103F4F">−1 fret</text>
+
+          <text x="260" y="20" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="700" fill="#185A72">MINOR — dark</text>
+          <circle cx="260" cy="50" r="15" fill="#185A72"/>
+          <text x="260" y="55" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="700" font-size="13" fill="#fff">5th</text>
+          <circle cx="260" cy="105" r="15" fill="#2E86A6"/>
+          <text x="260" y="110" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="700" font-size="12" fill="#fff">♭3rd</text>
+          <circle cx="260" cy="145" r="15" fill="#185A72"/>
+          <text x="260" y="150" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="700" font-size="13" fill="#fff">Root</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------------- QUIZ ---------------- -->
+  <section class="quiz" id="quiz">
+    <div class="wrap">
+      <div class="quiz-head">
+        <span class="eyebrow">Check Your Understanding</span>
+        <h2>18 quick questions</h2>
+        <p>Answer all 18, then submit. Your results go straight to Gabriel, and you'll see your score right here.</p>
+      </div>
+
+      <form class="quiz-card" id="quizForm">
+        <div class="field-row">
+          <div>
+            <label class="field-label" for="studentName">Your name</label>
+            <input type="text" id="studentName" name="name" required>
+          </div>
+          <div>
+            <label class="field-label" for="studentEmail">Your email (optional)</label>
+            <input type="email" id="studentEmail" name="email">
+          </div>
+        </div>
+
+        <div class="q" data-answer="b">
+          <p class="q-prompt"><span class="q-num">1.</span>How many letter names make up the musical alphabet?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q1" value="a">5</label>
+            <label class="option"><input type="radio" name="q1" value="b">7</label>
+            <label class="option"><input type="radio" name="q1" value="c">8</label>
+            <label class="option"><input type="radio" name="q1" value="d">12</label>
+          </div>
+        </div>
+
+        <div class="q" data-answer="a">
+          <p class="q-prompt"><span class="q-num">2.</span>After the letter G, what comes next?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q2" value="a">A</label>
+            <label class="option"><input type="radio" name="q2" value="b">H</label>
+            <label class="option"><input type="radio" name="q2" value="c">G♯</label>
+            <label class="option"><input type="radio" name="q2" value="d">It stops there</label>
+          </div>
+        </div>
+
+        <div class="q" data-answer="b">
+          <p class="q-prompt"><span class="q-num">3.</span>Which two letter pairs have no sharp or flat note between them?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q3" value="a">A–B and D–E</label>
+            <label class="option"><input type="radio" name="q3" value="b">B–C and E–F</label>
+            <label class="option"><input type="radio" name="q3" value="c">C–D and F–G</label>
+            <label class="option"><input type="radio" name="q3" value="d">G–A and E–F</label>
+          </div>
+        </div>
+
+        <div class="q" data-answer="b">
+          <p class="q-prompt"><span class="q-num">4.</span>On the guitar, moving one fret is called a:</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q4" value="a">Whole step</label>
+            <label class="option"><input type="radio" name="q4" value="b">Half step</label>
+            <label class="option"><input type="radio" name="q4" value="c">Octave</label>
+            <label class="option"><input type="radio" name="q4" value="d">Root</label>
+          </div>
+        </div>
+
+        <div class="q" data-answer="b">
+          <p class="q-prompt"><span class="q-num">5.</span>How many frets make up a whole step?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q5" value="a">1</label>
+            <label class="option"><input type="radio" name="q5" value="b">2</label>
+            <label class="option"><input type="radio" name="q5" value="c">3</label>
+            <label class="option"><input type="radio" name="q5" value="d">4</label>
+          </div>
+        </div>
+
+        <div class="q" data-answer="a">
+          <p class="q-prompt"><span class="q-num">6.</span>The major scale formula is:</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q6" value="a">W–W–H–W–W–W–H</label>
+            <label class="option"><input type="radio" name="q6" value="b">H–H–W–W–H–H–W</label>
+            <label class="option"><input type="radio" name="q6" value="c">W–H–W–H–W–H–W</label>
+            <label class="option"><input type="radio" name="q6" value="d">W–W–W–H–W–W–H</label>
+          </div>
+        </div>
+
+        <div class="q" data-answer="b">
+          <p class="q-prompt"><span class="q-num">7.</span>Starting on C, which pair of notes in the major scale is a half step apart?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q7" value="a">C to D</label>
+            <label class="option"><input type="radio" name="q7" value="b">E to F</label>
+            <label class="option"><input type="radio" name="q7" value="c">F to G</label>
+            <label class="option"><input type="radio" name="q7" value="d">A to B</label>
+          </div>
+        </div>
+
+        <div class="q" data-answer="b">
+          <p class="q-prompt"><span class="q-num">8.</span>The "root" note of a chord or key is:</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q8" value="a">The highest note played</label>
+            <label class="option"><input type="radio" name="q8" value="b">The anchor note the chord or key is named after</label>
+            <label class="option"><input type="radio" name="q8" value="c">Always the note C</label>
+            <label class="option"><input type="radio" name="q8" value="d">The last note played</label>
+          </div>
+        </div>
+
+        <div class="q" data-answer="c">
+          <p class="q-prompt"><span class="q-num">9.</span>In a G major chord, the root note is:</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q9" value="a">B</label>
+            <label class="option"><input type="radio" name="q9" value="b">D</label>
+            <label class="option"><input type="radio" name="q9" value="c">G</label>
+            <label class="option"><input type="radio" name="q9" value="d">A</label>
+          </div>
+        </div>
+
+        <div class="q" data-answer="b">
+          <p class="q-prompt"><span class="q-num">10.</span>Why is knowing the root useful?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q10" value="a">It tells you the tempo</label>
+            <label class="option"><input type="radio" name="q10" value="b">It helps you find and navigate chords and keys quickly</label>
+            <label class="option"><input type="radio" name="q10" value="c">It only matters for drummers</label>
+            <label class="option"><input type="radio" name="q10" value="d">It changes the guitar's tuning</label>
+          </div>
+        </div>
+
+        <div class="q" data-answer="d">
+          <p class="q-prompt"><span class="q-num">11.</span>How many beats does a whole note get in a standard bar?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q11" value="a">1</label>
+            <label class="option"><input type="radio" name="q11" value="b">2</label>
+            <label class="option"><input type="radio" name="q11" value="c">3</label>
+            <label class="option"><input type="radio" name="q11" value="d">4</label>
+          </div>
+        </div>
+
+        <div class="q" data-answer="b">
+          <p class="q-prompt"><span class="q-num">12.</span>Which note type gets exactly one beat?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q12" value="a">Half note</label>
+            <label class="option"><input type="radio" name="q12" value="b">Quarter note</label>
+            <label class="option"><input type="radio" name="q12" value="c">Eighth note</label>
+            <label class="option"><input type="radio" name="q12" value="d">Whole note</label>
+          </div>
+        </div>
+
+        <div class="q" data-answer="b">
+          <p class="q-prompt"><span class="q-num">13.</span>On the treble clef, the notes on the lines (bottom to top) spell out the mnemonic:</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q13" value="a">FACE</label>
+            <label class="option"><input type="radio" name="q13" value="b">Every Good Boy Does Fine</label>
+            <label class="option"><input type="radio" name="q13" value="c">All Cows Eat Grass</label>
+            <label class="option"><input type="radio" name="q13" value="d">Good Boys Do Fine Always</label>
+          </div>
+        </div>
+
+        <div class="q" data-answer="c">
+          <p class="q-prompt"><span class="q-num">14.</span>On the bass clef, the notes in the spaces spell:</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q14" value="a">FACE</label>
+            <label class="option"><input type="radio" name="q14" value="b">Every Good Boy Does Fine</label>
+            <label class="option"><input type="radio" name="q14" value="c">All Cows Eat Grass</label>
+            <label class="option"><input type="radio" name="q14" value="d">Good Boys Do Fine Always</label>
+          </div>
+        </div>
+
+        <div class="q" data-answer="b">
+          <p class="q-prompt"><span class="q-num">15.</span>A chord is best defined as:</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q15" value="a">A single note played loudly</label>
+            <label class="option"><input type="radio" name="q15" value="b">Three or more different notes played together</label>
+            <label class="option"><input type="radio" name="q15" value="c">Any note played on beat one</label>
+            <label class="option"><input type="radio" name="q15" value="d">A rhythm pattern</label>
+          </div>
+        </div>
+
+        <div class="q" data-answer="c">
+          <p class="q-prompt"><span class="q-num">16.</span>What does playing multiple notes at the same time create?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q16" value="a">Melody</label>
+            <label class="option"><input type="radio" name="q16" value="b">Tempo</label>
+            <label class="option"><input type="radio" name="q16" value="c">Harmony</label>
+            <label class="option"><input type="radio" name="q16" value="d">Dynamics</label>
+          </div>
+        </div>
+
+        <div class="q" data-answer="b">
+          <p class="q-prompt"><span class="q-num">17.</span>To turn a major chord into a minor chord, you:</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q17" value="a">Raise the root by a whole step</label>
+            <label class="option"><input type="radio" name="q17" value="b">Lower the middle note by one half step</label>
+            <label class="option"><input type="radio" name="q17" value="c">Remove the root note</label>
+            <label class="option"><input type="radio" name="q17" value="d">Play it faster</label>
+          </div>
+        </div>
+
+        <div class="q" data-answer="b">
+          <p class="q-prompt"><span class="q-num">18.</span>Which mood is generally associated with major chords?</p>
+          <div class="options">
+            <label class="option"><input type="radio" name="q18" value="a">Dark and sad</label>
+            <label class="option"><input type="radio" name="q18" value="b">Bright and happy</label>
+            <label class="option"><input type="radio" name="q18" value="c">Tense and dissonant</label>
+            <label class="option"><input type="radio" name="q18" value="d">Neutral</label>
+          </div>
+        </div>
+
+        <p class="error-msg" id="errorMsg">Please answer every question and enter your name before submitting.</p>
+
+        <div class="quiz-submit-row">
+          <button type="submit" class="btn" id="submitBtn">Submit My Answers</button>
+          <p class="quiz-note">Your name, score, and answers will be sent to Gabriel by email.</p>
+        </div>
+
+        <div class="result-panel" id="resultPanel">
+          <p class="eyebrow">Your Score</p>
+          <div class="result-score" id="resultScore">0 / 10</div>
+          <div class="result-frets" id="resultFrets"></div>
+          <p class="result-msg" id="resultMsg"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap footer-grid">
+    <div>
+      <img src="assets/logo-icon-white.png" alt="Okanagan School of Guitar" style="height:44px; width:auto; margin-bottom:14px;">
+      <p style="max-width:34ch;">A positive, fun learning environment for guitar and bass students of all ages in BC's southern interior.</p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="mailto:okanaganschoolofguitar@gmail.com">okanaganschoolofguitar@gmail.com</a>
+      <p>Coldstream, BC, Canada</p>
+    </div>
+    <div>
+      <h4>Follow Along</h4>
+      <a href="https://www.instagram.com/okanaganschoolofguitar" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/profile.php?id=61564040771165" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.youtube.com/okanaganschoolofguitar" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Okanagan School of Guitar. All rights reserved.</span>
+    <span>Theory Foundations Hub</span>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  document.getElementById('navToggle').addEventListener('click', function(){
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+  document.querySelectorAll('.nav-links a').forEach(function(a){
+    a.addEventListener('click', function(){ document.getElementById('navLinks').classList.remove('open'); });
+  });
+
+  // Highlight selected option
+  document.querySelectorAll('.q').forEach(function(q){
+    var options = q.querySelectorAll('.option');
+    options.forEach(function(opt){
+      opt.addEventListener('click', function(){
+        options.forEach(function(o){ o.classList.remove('selected'); });
+        opt.classList.add('selected');
+      });
+    });
+  });
+
+  // ==== IMPORTANT SETUP STEP ====
+  // Replace this with your own Formspree endpoint. Sign up free at https://formspree.io,
+  // create a form, and paste its unique URL below (looks like https://formspree.io/f/xxxxxxx).
+  var FORMSPREE_ENDPOINT = "https://formspree.io/f/xjybqovp";
+
+  var form = document.getElementById('quizForm');
+  var errorMsg = document.getElementById('errorMsg');
+  var resultPanel = document.getElementById('resultPanel');
+  var submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    errorMsg.classList.remove('show');
+
+    var name = document.getElementById('studentName').value.trim();
+    var questions = document.querySelectorAll('.q');
+    var total = questions.length;
+    var correct = 0;
+    var answerLines = [];
+    var allAnswered = true;
+
+    questions.forEach(function(q, i){
+      var qNum = i + 1;
+      var selected = q.querySelector('input[type="radio"]:checked');
+      var promptText = q.querySelector('.q-prompt').textContent.replace(/^\d+\.\s*/, '');
+      if(!selected){
+        allAnswered = false;
+        answerLines.push('Q' + qNum + ': (no answer)');
+        return;
+      }
+      var chosenLabel = selected.closest('.option').textContent.trim();
+      var isCorrect = selected.value === q.getAttribute('data-answer');
+      if(isCorrect) correct++;
+      answerLines.push('Q' + qNum + ' [' + (isCorrect ? 'correct' : 'incorrect') + ']: ' + promptText + ' -> ' + chosenLabel);
+    });
+
+    if(!name || !allAnswered){
+      errorMsg.classList.add('show');
+      return;
+    }
+
+    // Build fret-dot score visual
+    var fretsHtml = '';
+    for(var i = 0; i < total; i++){
+      fretsHtml += '<span class="dot' + (i < correct ? ' hit' : '') + '"></span>';
+    }
+    document.getElementById('resultFrets').innerHTML = fretsHtml;
+    document.getElementById('resultScore').textContent = correct + ' / ' + total;
+    var msg = correct === total
+      ? "Perfect score! You're ready for your first lesson."
+      : (correct >= total * 0.7
+          ? "Solid work — a quick review before your lesson will make everything click even faster."
+          : "Nice first pass. Read back through the sections above and try again before your lesson.");
+    document.getElementById('resultMsg').textContent = msg;
+    resultPanel.classList.add('show');
+    resultPanel.scrollIntoView({behavior:'smooth', block:'center'});
+
+    // Send to Formspree
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    var payload = {
+      name: name,
+      email: document.getElementById('studentEmail').value.trim(),
+      score: correct + ' / ' + total,
+      answers: answerLines.join('\n')
+    };
+
+    fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function(res){
+      submitBtn.textContent = res.ok ? 'Sent to Gabriel ✓' : 'Score shown — email not sent';
+    }).catch(function(){
+      submitBtn.textContent = 'Score shown — email not sent';
+    });
+  });
+</script>
+
+</body>
+</html>
+
+</body>
+</html>
