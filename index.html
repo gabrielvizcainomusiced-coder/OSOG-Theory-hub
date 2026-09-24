@@ -58,7 +58,7 @@
   /* ---------- Nav ---------- */
   header.site{
     position:sticky; top:0; z-index:50;
-    background:rgba(251,247,239,0.92);
+    background:rgba(255,255,255,0.92);
     backdrop-filter: blur(6px);
     border-bottom:1px solid var(--line);
   }
@@ -137,17 +137,6 @@
   }
   .hero-logo-card img{width:100%; max-width:380px; height:auto; display:block;}
 
-  /* ---------- Fretboard motif (signature element) ---------- */
-  .fret-divider{width:100%; height:auto; display:block; margin:0 auto;}
-  .curriculum-progress{
-    display:flex; gap:6px; align-items:flex-end; margin-top:8px;
-  }
-  .curriculum-progress .fretdot{
-    width:11px; height:11px; border-radius:50%;
-    background:var(--line); border:1.5px solid var(--teal-mid);
-  }
-  .curriculum-progress .fretdot.done{background:var(--accent); border-color:var(--accent-dark);}
-
   /* ---------- Topic sections ---------- */
   section.topic{
     padding:64px 0;
@@ -222,6 +211,16 @@
   .option:hover{border-color:var(--teal-mid);}
   .option input{accent-color:var(--accent);}
   .option.selected{border-color:var(--accent); background:rgba(46,134,166,0.08);}
+  .option input:disabled{cursor:default;}
+  .q.answered .option{cursor:default;}
+  .option.correct{border-color:#2F7D4F; background:rgba(47,125,79,0.08); font-weight:600;}
+  .option.incorrect{border-color:#B23B3B; background:rgba(178,59,59,0.07);}
+  .q-feedback{
+    display:none; margin-top:12px; padding:11px 14px; border-radius:10px;
+    font-size:14px; font-weight:500;
+  }
+  .q-feedback.correct{display:block; background:rgba(47,125,79,0.09); color:#215C3B;}
+  .q-feedback.incorrect{display:block; background:rgba(178,59,59,0.08); color:#8A2C2C;}
 
   .quiz-submit-row{margin-top:30px; text-align:center;}
   .quiz-note{font-size:13px; color:var(--ink-soft); margin-top:12px;}
@@ -308,10 +307,8 @@
       <div class="topic-visual">
         <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
           <circle cx="160" cy="160" r="118" fill="none" stroke="#185A72" stroke-opacity="0.15" stroke-width="1.5"/>
-          <!-- highlighted arcs: no note between B-C and E-F -->
           <path d="M 272.6 95.0 A 130 130 0 0 1 290.0 160.0" fill="none" stroke="#2E86A6" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 7"/>
           <path d="M 95.0 272.6 A 130 130 0 0 1 47.4 225.0" fill="none" stroke="#2E86A6" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 7"/>
-          <!-- 12 chromatic note positions -->
           <circle cx="160.0" cy="42.0" r="13" fill="#185A72"/>
           <text x="160.0" y="21.0" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="15" font-weight="700" fill="#185A72">A</text>
           <circle cx="219.0" cy="57.8" r="9" fill="#2E86A6"/>
@@ -355,12 +352,10 @@
       </div>
       <div class="topic-visual">
         <svg viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg">
-          <!-- brackets -->
           <path d="M 52 66 L 52 50 L 116 50 L 116 66" fill="none" stroke="#2E86A6" stroke-width="2"/>
           <text x="84" y="38" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="600" fill="#103F4F">Half step</text>
           <path d="M 116 96 L 116 80 L 244 80 L 244 96" fill="none" stroke="#4C90A6" stroke-width="2"/>
           <text x="180" y="68" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="600" fill="#185A72">Whole step</text>
-          <!-- neck -->
           <rect x="20" y="110" width="320" height="70" fill="#EAF3F5" stroke="#185A72" stroke-opacity="0.3"/>
           <g stroke="#185A72" stroke-opacity="0.4" stroke-width="2">
             <line x1="20" y1="110" x2="20" y2="180"/>
@@ -372,12 +367,10 @@
           </g>
           <rect x="16" y="108" width="6" height="74" fill="#185A72"/>
           <line x1="20" y1="145" x2="340" y2="145" stroke="#4C90A6" stroke-width="1.6"/>
-          <!-- fret numbers -->
           <g font-family="Work Sans, sans-serif" font-size="11" fill="#45606B" text-anchor="middle">
             <text x="52" y="198">1</text><text x="116" y="198">2</text><text x="180" y="198">3</text>
             <text x="244" y="198">4</text><text x="308" y="198">5</text>
           </g>
-          <!-- note dots -->
           <circle cx="52" cy="145" r="10" fill="#2E86A6"/>
           <circle cx="116" cy="145" r="10" fill="#2E86A6"/>
           <circle cx="244" cy="145" r="10" fill="#185A72"/>
@@ -560,7 +553,6 @@
             <text x="312" y="41">G</text>
           </g>
 
-          <line x1="90" y1="120" x2="90" y2="120" stroke="none"/>
           <text x="90" y="140" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="700" fill="#103F4F">E G B D F</text>
           <text x="90" y="158" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="10" fill="#45606B">Every Good Boy Does Fine</text>
           <text x="270" y="140" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="12" font-weight="700" fill="#103F4F">G B D F A</text>
@@ -646,7 +638,7 @@
       <div class="quiz-head">
         <span class="eyebrow">Check Your Understanding</span>
         <h2>18 quick questions</h2>
-        <p>Answer all 18, then submit. Your results go straight to Gabriel, and you'll see your score right here.</p>
+        <p>Answer each question and you'll see right away whether you got it — with a quick explanation either way. Finish all 18 and submit to send your results to Gabriel.</p>
       </div>
 
       <form class="quiz-card" id="quizForm">
@@ -661,7 +653,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="b">
+        <div class="q" data-answer="b" data-explanation="Music uses only seven letters — A through G — then the pattern loops.">
           <p class="q-prompt"><span class="q-num">1.</span>How many letter names make up the musical alphabet?</p>
           <div class="options">
             <label class="option"><input type="radio" name="q1" value="a">5</label>
@@ -671,7 +663,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="a">
+        <div class="q" data-answer="a" data-explanation="The alphabet loops: after G, you're back to A, one octave higher.">
           <p class="q-prompt"><span class="q-num">2.</span>After the letter G, what comes next?</p>
           <div class="options">
             <label class="option"><input type="radio" name="q2" value="a">A</label>
@@ -681,7 +673,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="b">
+        <div class="q" data-answer="b" data-explanation="B–C and E–F sit right next to each other — no sharp or flat between them.">
           <p class="q-prompt"><span class="q-num">3.</span>Which two letter pairs have no sharp or flat note between them?</p>
           <div class="options">
             <label class="option"><input type="radio" name="q3" value="a">A–B and D–E</label>
@@ -691,7 +683,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="b">
+        <div class="q" data-answer="b" data-explanation="One fret equals a half step — the smallest distance on the guitar.">
           <p class="q-prompt"><span class="q-num">4.</span>On the guitar, moving one fret is called a:</p>
           <div class="options">
             <label class="option"><input type="radio" name="q4" value="a">Whole step</label>
@@ -701,7 +693,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="b">
+        <div class="q" data-answer="b" data-explanation="Two frets equal one whole step — twice the distance of a half step.">
           <p class="q-prompt"><span class="q-num">5.</span>How many frets make up a whole step?</p>
           <div class="options">
             <label class="option"><input type="radio" name="q5" value="a">1</label>
@@ -711,7 +703,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="a">
+        <div class="q" data-answer="a" data-explanation="Every major scale follows W–W–H–W–W–W–H, no matter the starting note.">
           <p class="q-prompt"><span class="q-num">6.</span>The major scale formula is:</p>
           <div class="options">
             <label class="option"><input type="radio" name="q6" value="a">W–W–H–W–W–W–H</label>
@@ -721,7 +713,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="b">
+        <div class="q" data-answer="b" data-explanation="In C major, E to F is the one half step in the pattern — everywhere else is a whole step.">
           <p class="q-prompt"><span class="q-num">7.</span>Starting on C, which pair of notes in the major scale is a half step apart?</p>
           <div class="options">
             <label class="option"><input type="radio" name="q7" value="a">C to D</label>
@@ -731,7 +723,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="b">
+        <div class="q" data-answer="b" data-explanation="The root is the note everything else in the chord or key is built around.">
           <p class="q-prompt"><span class="q-num">8.</span>The "root" note of a chord or key is:</p>
           <div class="options">
             <label class="option"><input type="radio" name="q8" value="a">The highest note played</label>
@@ -741,7 +733,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="c">
+        <div class="q" data-answer="c" data-explanation="A G major chord is named after its root — G.">
           <p class="q-prompt"><span class="q-num">9.</span>In a G major chord, the root note is:</p>
           <div class="options">
             <label class="option"><input type="radio" name="q9" value="a">B</label>
@@ -751,7 +743,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="b">
+        <div class="q" data-answer="b" data-explanation="Spotting the root lets you navigate chords and keys fast, even before you know every note.">
           <p class="q-prompt"><span class="q-num">10.</span>Why is knowing the root useful?</p>
           <div class="options">
             <label class="option"><input type="radio" name="q10" value="a">It tells you the tempo</label>
@@ -761,7 +753,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="d">
+        <div class="q" data-answer="d" data-explanation="A whole note rings for all 4 beats of the bar.">
           <p class="q-prompt"><span class="q-num">11.</span>How many beats does a whole note get in a standard bar?</p>
           <div class="options">
             <label class="option"><input type="radio" name="q11" value="a">1</label>
@@ -771,7 +763,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="b">
+        <div class="q" data-answer="b" data-explanation="A quarter note gets exactly one beat — one note per click of the metronome.">
           <p class="q-prompt"><span class="q-num">12.</span>Which note type gets exactly one beat?</p>
           <div class="options">
             <label class="option"><input type="radio" name="q12" value="a">Half note</label>
@@ -781,7 +773,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="b">
+        <div class="q" data-answer="b" data-explanation="Every Good Boy Does Fine — E, G, B, D, F on the treble lines.">
           <p class="q-prompt"><span class="q-num">13.</span>On the treble clef, the notes on the lines (bottom to top) spell out the mnemonic:</p>
           <div class="options">
             <label class="option"><input type="radio" name="q13" value="a">FACE</label>
@@ -791,7 +783,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="c">
+        <div class="q" data-answer="c" data-explanation="All Cows Eat Grass — A, C, E, G in the bass spaces.">
           <p class="q-prompt"><span class="q-num">14.</span>On the bass clef, the notes in the spaces spell:</p>
           <div class="options">
             <label class="option"><input type="radio" name="q14" value="a">FACE</label>
@@ -801,7 +793,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="b">
+        <div class="q" data-answer="b" data-explanation="A chord needs three or more different notes played together.">
           <p class="q-prompt"><span class="q-num">15.</span>A chord is best defined as:</p>
           <div class="options">
             <label class="option"><input type="radio" name="q15" value="a">A single note played loudly</label>
@@ -811,7 +803,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="c">
+        <div class="q" data-answer="c" data-explanation="Notes played together at once create harmony, distinct from a single-note melody.">
           <p class="q-prompt"><span class="q-num">16.</span>What does playing multiple notes at the same time create?</p>
           <div class="options">
             <label class="option"><input type="radio" name="q16" value="a">Melody</label>
@@ -821,7 +813,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="b">
+        <div class="q" data-answer="b" data-explanation="Drop the middle note (the 3rd) by one half step and a major chord becomes minor.">
           <p class="q-prompt"><span class="q-num">17.</span>To turn a major chord into a minor chord, you:</p>
           <div class="options">
             <label class="option"><input type="radio" name="q17" value="a">Raise the root by a whole step</label>
@@ -831,7 +823,7 @@
           </div>
         </div>
 
-        <div class="q" data-answer="b">
+        <div class="q" data-answer="b" data-explanation="Major chords are generally heard as bright and resolved — the &quot;happy&quot; sound.">
           <p class="q-prompt"><span class="q-num">18.</span>Which mood is generally associated with major chords?</p>
           <div class="options">
             <label class="option"><input type="radio" name="q18" value="a">Dark and sad</label>
@@ -850,7 +842,7 @@
 
         <div class="result-panel" id="resultPanel">
           <p class="eyebrow">Your Score</p>
-          <div class="result-score" id="resultScore">0 / 10</div>
+          <div class="result-score" id="resultScore">0 / 18</div>
           <div class="result-frets" id="resultFrets"></div>
           <p class="result-msg" id="resultMsg"></p>
         </div>
@@ -893,13 +885,38 @@
     a.addEventListener('click', function(){ document.getElementById('navLinks').classList.remove('open'); });
   });
 
-  // Highlight selected option
+  // Instant feedback: reveal correct/incorrect the moment a question is answered
   document.querySelectorAll('.q').forEach(function(q){
-    var options = q.querySelectorAll('.option');
-    options.forEach(function(opt){
-      opt.addEventListener('click', function(){
-        options.forEach(function(o){ o.classList.remove('selected'); });
-        opt.classList.add('selected');
+    var correctVal = q.getAttribute('data-answer');
+    var explanation = q.getAttribute('data-explanation') || '';
+    var radios = q.querySelectorAll('input[type="radio"]');
+
+    var feedback = document.createElement('div');
+    feedback.className = 'q-feedback';
+    q.appendChild(feedback);
+
+    radios.forEach(function(radio){
+      radio.addEventListener('change', function(){
+        if(q.classList.contains('answered')) return; // lock after first answer
+        q.classList.add('answered');
+
+        var options = q.querySelectorAll('.option');
+        var isCorrect = radio.value === correctVal;
+
+        options.forEach(function(opt){
+          var input = opt.querySelector('input');
+          input.disabled = true; // lock the question
+          opt.classList.remove('selected');
+          if(input.value === correctVal){
+            opt.classList.add('correct');
+          }
+          if(input === radio && !isCorrect){
+            opt.classList.add('incorrect');
+          }
+        });
+
+        feedback.classList.add(isCorrect ? 'correct' : 'incorrect');
+        feedback.textContent = (isCorrect ? 'Correct. ' : 'Not quite. ') + explanation;
       });
     });
   });
@@ -945,7 +962,6 @@
       return;
     }
 
-    // Build fret-dot score visual
     var fretsHtml = '';
     for(var i = 0; i < total; i++){
       fretsHtml += '<span class="dot' + (i < correct ? ' hit' : '') + '"></span>';
@@ -961,7 +977,6 @@
     resultPanel.classList.add('show');
     resultPanel.scrollIntoView({behavior:'smooth', block:'center'});
 
-    // Send to Formspree
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';
 
@@ -983,9 +998,6 @@
     });
   });
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
